@@ -26,6 +26,7 @@ export const Input = ({
 
     return (
         <>
+        <div>
             <div>
                 <span>{label}</span>
             </div>
@@ -37,6 +38,7 @@ export const Input = ({
                         onBlur={handleOnBlur}
                         rows={5}
                         placeholder={placeholder}
+                        
                     />
                 ) : (
                     <input
@@ -45,10 +47,13 @@ export const Input = ({
                         onChange={handleValueChange}
                         onBlur={handleOnBlur}
                         placeholder={placeholder}
+                        className="shadow-sm bg-gray-700 border border-gray-600 text-white text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4 placeholder-gray-400 "
+                        
                     />
                 )
             }
             <span>{showErrorMessage && validationMessage}</span>
+        </div>
         </>
     )
 }
