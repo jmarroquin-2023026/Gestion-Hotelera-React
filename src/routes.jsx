@@ -5,7 +5,7 @@ import { DashboardPage } from "./Pages/DashboardPage";
 import {FormPage} from '../src/Pages/FormPage'
 import NotFound from "./Pages/NotFound";
 import { HotelForm } from "./components/hotel/HotelForm";
-import { UpdateHotelForm } from "./components/hotel/UpdateHotelForm";
+
 
 
 export const routes=[

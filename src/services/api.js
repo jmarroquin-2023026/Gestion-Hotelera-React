@@ -73,3 +73,13 @@ export const updateHotelRequest = async (id, hotelFormData) => {
   }
 }
 
+export const deleteHotelRequest = async (id, ) => {
+  try {
+    const response = await apiClient.delete(`/hotel/${id}`, {
+    })
+    return response
+  } catch (e) {
+    return { error: true, e }
+  }
+}
+

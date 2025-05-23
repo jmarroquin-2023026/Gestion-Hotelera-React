@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useDeteleHotel } from '../../shared/hooks/Hotel/useDeteleHotel'
 
 const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgyqyRI5AkJKmApQYPMUJ_VK4thp7WQTV-Lp0usec0dUFqfY9gca7elqzbOYvGkO4Rho&usqp=CAU'
 
@@ -41,6 +42,7 @@ export const HotelCard = ({
 }) => {
 
     const navigate=useNavigate()
+    const { deleteHotel, isLoading } = useDeteleHotel()
 
     const handleNavigateToHotel = () =>{
         navigateToHotelHandler(id)
@@ -48,8 +50,18 @@ export const HotelCard = ({
 
     const handleEditButton = (id) => {
        navigate(`/hotel/update/${id}`)
-   }
-    const handleDeleteHotel = () => console.log(`Deleting hotel with ID: ${id}`)
+    }
+
+    const handleDeleteHotel = async () => {
+    const confirmed = window.confirm('¿Estás seguro de que deseas eliminar este hotel?')
+    if (!confirmed) return;
+
+    const success = await deleteHotel(id)
+
+    if (success) {
+        toast.success('Hotel eliminado con éxito')
+    }
+}
 
     const isAdmin = JSON.parse(localStorage.getItem('user')).role === 'ADMIN'
 
@@ -86,14 +98,15 @@ export const HotelCard = ({
                     {isAdmin && (
                         <>
                             <button
-                                className="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded"
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    handleDeleteHotel()
-                                }}
-                            >
-                                Delete 🗑️
-                            </button>
+            className="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded"
+            onClick={(e) => {
+                e.stopPropagation()
+                handleDeleteHotel()
+            }}
+            disabled={isLoading}
+        >
+            {isLoading ? 'Eliminando...' : 'Delete 🗑️'}
+        </button>
                           <button
   onClick={(e) => {
     e.stopPropagation();
