@@ -19,11 +19,9 @@ export const HotelDetails = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-4 py-10">
       <div className="bg-slate-700 rounded-3xl shadow-xl w-full max-w-5xl p-6 md:p-10 text-white space-y-10">
-        
-        {/* Título principal */}
+ 
         <h1 className="text-center text-4xl font-extrabold text-white">Detalles del Hotel</h1>
 
-        {/* Galería de imágenes */}
         <div>
           <h2 className="text-2xl font-bold mb-3">Galería</h2>
           <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
