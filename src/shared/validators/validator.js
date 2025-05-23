@@ -3,6 +3,11 @@ export const notEmptyOwner =(owner)=>{
     return regex.test(owner.trim())
 }
 
+export const generalValidator=(prop)=>{
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,30}$/
+    return regex.test(prop.trim())
+}
+
 export const categoryValidator = (category)=>{
     const regex = /^(1 STAR|2 STARS|3 STARS|4 STARS|5 STARS)$/
     return regex.test(category.trim())
@@ -66,3 +71,4 @@ export const usernameValidationMessage = 'El nombre de usuario debe contener ent
 export const passwordValidationMessage = 'La contraseña debe tener entre 6 y 12 caracteres, sin espacios'
 export const passConfirmValidationMessage = 'Las contraseñas no coinciden'
 export const profilePictureValidationMessage = 'La imagen debe ser JPG, JPEG, PNG o WEBP y no superar los 5 MB'
+export const generalValidatorMessage= 'Ingrese los datos necesarios para el registro'

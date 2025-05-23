@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const apiClient=axios.create(
     {
@@ -43,8 +43,11 @@ export const getHotelsRequest=async()=>{
     try{
         return await apiClient.get('/hotel/')
     }catch(e){
-        error:true,
-        e
+        return{
+
+            error:true,
+            e
+        }
     }
 }
 
@@ -52,11 +55,21 @@ export const addHotelRequest=async(hotelFromData) =>{
     try{
         return await apiClient.post('/hotel/add', hotelFromData)
     }catch(e){
-        error:true,
-        e
+        return{
+
+            error:true,
+            e
+        }
     }
 }
 
-export const getUsersRequest=async()=>{
-
+export const updateHotelRequest = async (id, hotelFormData) => {
+  try {
+    const response = await apiClient.put(`/hotel/${id}`, hotelFormData, {
+    })
+    return response
+  } catch (e) {
+    return { error: true, e }
+  }
 }
+

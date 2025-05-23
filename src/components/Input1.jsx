@@ -42,10 +42,11 @@ export const Input1 = ({
                     <input
                         type={type}
                         value={type === 'file' ? undefined : value}
-                        onChange={(e) => onChangeHandler(e, field)} // 🔥 importante pasar e
+                        onChange={(e) => onChangeHandler(e, field)}
                         onBlur={handleOnBlur}
                         placeholder={placeholder}
                         multiple
+                        className="shadow-sm bg-gray-700 border border-gray-600 text-white text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4 placeholder-gray-400 "
                     />
                 )
             }

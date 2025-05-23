@@ -14,7 +14,7 @@ export const DashboardPage = () => {
     }, [allHotels])
 
     return (
-        <div>
+        <div >
             <DashboardContent hotels={allHotels} getHotels={getHotels} />
         </div>
     )

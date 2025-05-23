@@ -3,7 +3,11 @@ import { Input1 } from '../Input1'
 import { useAddHotel } from '../../shared/hooks/Hotel/useAddHotel'
 import { nameValidationMessage, profilePictureValidationMessage, 
     validateName, validateProfilePicture, ownerValidatorMessage, notEmptyOwner, 
-    validateReservationMessage, validateReservation, categoryValidatorMessage, categoryValidator} from '../../shared/validators/validator'
+    validateReservationMessage, validateReservation, categoryValidatorMessage, categoryValidator,
+    generalValidator,
+    generalValidatorMessage} from '../../shared/validators/validator'
+import { useUpdateHotel } from '../../shared/hooks/Hotel/useUpdateHotel'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export const HotelForm = () => {
     const form = {
@@ -44,7 +48,11 @@ export const HotelForm = () => {
         }
     }
 
+    const {id}=useParams()
+    const navigate=useNavigate()
+    const isEditMode = Boolean(id)
     const { addHotel } = useAddHotel()
+    const {updateHotel}=useUpdateHotel()
     const [formData, setFormData] = useState(form)
 
     const isSubmitButtonDisable =
@@ -57,21 +65,36 @@ export const HotelForm = () => {
         !formData.photos.isValid
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+  e.preventDefault();
 
-        const data = new FormData()
-        data.append('owner', formData.owner.value)
-        data.append('name', formData.name.value)
-        data.append('address', formData.address.value)
-        data.append('category', formData.category.value)
-        data.append('amenities', formData.amenities.value)
-        data.append('reservations', formData.reservations.value)
-        formData.photos.value.forEach((file) => {
-            data.append('photos', file);
-        })
+  const data = new FormData();
+  data.append('owner', formData.owner.value);
+  data.append('name', formData.name.value);
+  data.append('address', formData.address.value);
+  data.append('category', formData.category.value);
+  data.append('amenities', formData.amenities.value);
+  data.append('reservations', formData.reservations.value);
+  formData.photos.value.forEach(file => data.append('photos', file));
 
-        addHotel(data)
+  if (isEditMode) {
+    const updatedHotel = await updateHotel(id, data);
+    navigate('/dashboard/hotels')
+    if (updatedHotel) {
+      setFormData({
+        owner: { value: updatedHotel.owner, isValid: true, showError: false },
+        name: { value: updatedHotel.name, isValid: true, showError: false },
+        address: { value: updatedHotel.address, isValid: true, showError: false },
+        category: { value: updatedHotel.category, isValid: true, showError: false },
+        amenities: { value: updatedHotel.amenities, isValid: true, showError: false },
+        reservations: { value: updatedHotel.reservations, isValid: true, showError: false },
+        photos: { value: [], isValid: true, showError: false } 
+
+      });
     }
+  } else {
+    await addHotel(data);
+  }
+}
 
     const handleValidationOnBlur = (value, field) => {
         let isValid = false
@@ -80,16 +103,16 @@ export const HotelForm = () => {
                 isValid = notEmptyOwner(value) 
                 break
             case 'name':
-                isValid = validateName(value)
+                isValid = generalValidator(value)
                 break
             case 'address':
-                isValid = validateName(value)
+                isValid = generalValidator(value)
                 break
             case 'category':
                 isValid = categoryValidator(value)
                 break
             case 'amenities':
-                isValid = validateName(value)
+                isValid = generalValidator(value)
                 break
             case 'reservations':
                 isValid = validateReservation(value)
@@ -154,7 +177,7 @@ export const HotelForm = () => {
                         type='text'
                         onBlurHandler={handleValidationOnBlur}
                         showErrorMessage={formData.name.showError}
-                        validationMessage={nameValidationMessage}
+                        validationMessage={generalValidatorMessage}
                         className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                 </div>
@@ -168,7 +191,7 @@ export const HotelForm = () => {
                         onChangeHandler={handleValueChange}
                         onBlurHandler={handleValidationOnBlur}
                         showErrorMessage={formData.address.showError}
-                        validationMessage={nameValidationMessage}
+                        validationMessage={generalValidatorMessage}
                         className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                 </div>
@@ -233,7 +256,7 @@ export const HotelForm = () => {
                     disabled={isSubmitButtonDisable}
                     className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${isSubmitButtonDisable ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                    Add Hotel
+                    {id ? 'Actualizar Hotel' : 'Crear Hotel'}
                 </button>
             </form>
         </div>
