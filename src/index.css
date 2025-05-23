@@ -9,3 +9,10 @@ body,
   margin: 0;
   background-color: #111827;
 }
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #4d617d;
+  border-radius: 8px;
+}

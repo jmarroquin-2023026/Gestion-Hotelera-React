@@ -51,6 +51,17 @@ export const getHotelsRequest=async()=>{
     }
 }
 
+export const getHotelRequest=async(id)=>{
+    try{
+        return await apiClient.get(`/hotel/${id}`)
+    }catch(e){
+        return{
+
+            error:true,
+            e
+        }
+    }
+}
 export const addHotelRequest=async(hotelFromData) =>{
     try{
         return await apiClient.post('/hotel/add', hotelFromData)

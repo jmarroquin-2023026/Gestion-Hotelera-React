@@ -5,7 +5,7 @@ import { useDeteleHotel } from '../../shared/hooks/Hotel/useDeteleHotel'
 
 const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgyqyRI5AkJKmApQYPMUJ_VK4thp7WQTV-Lp0usec0dUFqfY9gca7elqzbOYvGkO4Rho&usqp=CAU'
 
-const HotelImage = ({ urls = [] }) => {
+export const HotelImage = ({ urls = [] }) => {
     if (urls.length === 0) {
         return (
             <div className="w-full h-full bg-slate-300 items-center justify-center">
@@ -52,6 +52,9 @@ export const HotelCard = ({
        navigate(`/hotel/update/${id}`)
     }
 
+    const handleDetailsButton = (id) => {
+       navigate(`/details/${id}`)
+    }
     const handleDeleteHotel = async () => {
     const confirmed = window.confirm('¿Estás seguro de que deseas eliminar este hotel?')
     if (!confirmed) return;
@@ -90,7 +93,7 @@ export const HotelCard = ({
                         className="bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded"
                         onClick={(e) => {
                             e.stopPropagation()
-                            handleNavigateToHotel()
+                            handleDetailsButton(id)
                         }}
                     >
                         Details 📖
