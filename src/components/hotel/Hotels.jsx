@@ -14,7 +14,7 @@ export const Hotels = () => {
 
      return (
         <div>
-            <div className="text-center my-6">
+            <div className="mt-24 text-center my-6">
                 <h1 className="text-3xl font-bold text-white mb-4">Lista de Hoteles</h1>
 
                 {isAdmin && (
