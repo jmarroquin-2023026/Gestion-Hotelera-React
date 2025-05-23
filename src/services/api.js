@@ -34,9 +34,29 @@ export const loginRequest=async(user)=>{
     }catch(e){
         return {
             error: true,
-            message: e?.response?.data?.message || 'Error inesperado',
-            status: e?.response?.status,
             e
         }
     }
+}
+
+export const getHotelsRequest=async()=>{
+    try{
+        return await apiClient.get('/hotel/')
+    }catch(e){
+        error:true,
+        e
+    }
+}
+
+export const addHotelRequest=async(hotelFromData) =>{
+    try{
+        return await apiClient.post('/hotel/add', hotelFromData)
+    }catch(e){
+        error:true,
+        e
+    }
+}
+
+export const getUsersRequest=async()=>{
+
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import toast from 'react-hot-toast'
-
 import { useNavigate } from "react-router-dom";
 import { loginRequest } from "../../../services/api";
 
@@ -23,8 +22,9 @@ export const useLogin = () => {
             'Error general al intentar logearse. Intenta de nuevo.'
             )
         }
+        localStorage.setItem('user', JSON.stringify(response?.data?.loggedUser))
 
-        navigate('/a')
+        navigate('/dashboard/hotels')
     }
 
   return {

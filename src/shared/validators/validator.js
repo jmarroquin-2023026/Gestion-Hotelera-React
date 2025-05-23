@@ -1,4 +1,18 @@
+export const notEmptyOwner =(owner)=>{
+    const regex = /^[a-f0-9]{24}$/
+    return regex.test(owner.trim())
+}
 
+export const categoryValidator = (category)=>{
+    const regex = /^(1 STAR|2 STARS|3 STARS|4 STARS|5 STARS)$/
+    return regex.test(category.trim())
+}
+
+export const validateReservation = (reservations)=>{
+    const regex = /^\d+$/
+    return regex.test(reservations.trim())
+
+}
 export const validateName = (name) => {
     const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,30}$/
     return regex.test(name.trim())
@@ -22,7 +36,7 @@ export const validateUsername = (username)=>{
 
 //Modificar el regex
 export const validatePassword = (password)=>{
-    const regex = /^\S{6,12}$/ 
+    const regex = /^\S{8,24}$/ 
     return regex.test(password)
 }
 
@@ -42,6 +56,9 @@ export const validateProfilePicture = (profilePicture) => {
 }
 
 
+export const categoryValidatorMessage = 'Tiene que ser algun dato del enum'
+export const validateReservationMessage = 'Tiene que ser un numero, no caracter'
+export const ownerValidatorMessage = 'El id del owner debe ser un objeto de mongodb'
 export const nameValidationMessage = 'El nombre debe tener entre 2 y 30 letras, sin caracteres especiales ni espacios'
 export const surnameValidationMessage = 'El apellido debe tener entre 2 y 30 letras, sin caracteres especiales ni espacios'
 export const emailValidationMessage = 'Por favor ingresa un correo válido'
